@@ -1,0 +1,12 @@
+SITE
+  remote: https://supermarket.getchef.com/api/v1
+  specs:
+    build-essential (2.2.4)
+    cpu (0.2.0)
+    haproxy (1.6.7)
+      build-essential (>= 0.0.0)
+      cpu (>= 0.2.0)
+
+DEPENDENCIES
+  haproxy (~> 1.6.7)
+

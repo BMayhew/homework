@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "hashicorp/precise64"
+
+  VAGRANT_JSON = JSON.parse(Pathname(__FILE__).dirname.join('nodes', 'vagrant.json').read)
+
+  config.vm.provision :chef_solo do |chef|
+    chef.roles_path = "roles"
+    chef.data_bags_path = "data_bags"
+    chef.provisioning_path = "/tmp/vagrant-chef"
+    
+    # You may also specify custom JSON attributes:
+    chef.run_list = VAGRANT_JSON.delete('run_list')
+    chef.json = VAGRANT_JSON
+  end
+
+  config.vm.provision :chef_solo do |chef|
+    chef.add_recipe "nodejs"
+  end
+  
+
+  config.vm.network "forwarded_port", guest: 4000, host: 8080
+    #auto_correct: true
+  config.vm.hostname = "Awesome-Webserver"
+  config.vm.post_up_message = "Your Nodejs web box is up and operational using Static IP 192.168.33.5"
+  config.vm.network "private_network", ip: "192.168.33.5"
+
+end
+
+
+
+

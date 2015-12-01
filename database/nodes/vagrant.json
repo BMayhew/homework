@@ -1,0 +1,12 @@
+
+{
+  "postgresql":{
+    "password":{
+      "postgres":"f5a4fd94a405896c47f8153794b05va596"
+    }
+  },
+  "run_list":[
+    "recipe[postgresql]",
+    "recipe[postgresql::server]"
+  ]
+}
